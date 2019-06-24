@@ -139,7 +139,7 @@ class TrainDataSet_RAW(torch.utils.data.Dataset):
         return len(self.images)
 
 if __name__ == '__main__':
-    path = 'D:\\BinZhang\\Codes\\BurstDenosing\\burst-denoising-master\\dataset\\train'
+    path = './'
     dataset = TrainDataSet_RAW(
         dataset_dir=path,
         img_format='.jpg',
