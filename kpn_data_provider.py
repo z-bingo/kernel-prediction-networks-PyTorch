@@ -158,7 +158,7 @@ class TrainDataSet(torch.utils.data.Dataset):
 
 
 if __name__ == '__main__':
-    path = 'G:\\BinZhang\\DataSets\\burst-denoising\\test'
+    path = './'
     dataset = TrainDataSet(path, '.jpg', 8, 128, 4, 16, 2, color=False)
     dataloader = DataLoader(dataset,
                             batch_size=4,
