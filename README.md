@@ -12,3 +12,23 @@ Write the documents.
 - Scikit-image
 - Numpy
 - TensorboardX (needed tensorflow support)
+
+## How to use this repo?
+The repo. supports multiple GPUs to train and validate, and the default setting is multi-GPUs. In other words, the pretrained model is obtained by training on multi-GPUs.
+
+- If you want to restart the train process by yourself, the command you should type is that
+```angular2html
+CUDA_VISIBLE_DEVICES=x,y train_eval_sym.py --cuda --mGPU -nw 4 --config_file ./kpn_specs/kpn_config.conf --restart
+```
+If no option of `--restart`, the train process could be resumed from when it was broken.
+
+- If you want to evaluate the network by pre-trained model directly, you could use
+```angular2html
+CUDA_VISIBLE_DEVICES=x,y train_eval_syn.py --cuda --mGPU -nw 4 --eval
+```
+If else option `-ckpt` is choosen, you can select the other models you trained.
+
+- Anything else.
+  - The code for single image is not released now, I will program it in few weeks.
+  
+##### If you like this repo, Star or Fork to support my work. Thank you.
