@@ -33,7 +33,7 @@ If else option `-ckpt` is choosen, you can select the other models you trained.
   
 ## Results
 #### Image 1
-![Ground Truth](<img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png" width="300"/>)
+<img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png" width="300"/>
 ![Noisy](https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png)
 ![Denoised Image](https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png)
   
