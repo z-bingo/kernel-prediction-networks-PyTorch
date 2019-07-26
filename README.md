@@ -34,12 +34,31 @@ If else option `-ckpt` is choosen, you can select the other models you trained.
 ## Results
 <table>
 <tr>
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png"/> Ground Truth </center> </td>
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png"/ width="300"> </center> </td>
 
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png"/> Noisy </center> </td>
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png"/ width="300" height=width> </center> </td>
 
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png"/> Denoised </center> </td>
-  
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png"/ width="300" height=width> </center> </td>
+</tr>
+
+<tr>
+<td><center> Ground Truth </center></td>
+<td><center> Noisy </center></td>
+<td><center> Denoised </center></td>
+</tr>
+
+<tr>
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_gt.png"/ width="300"> </center> </td>
+
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_noisy.png"/ width="300" height=width> </center> </td>
+
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_kpn.png"/ width="300" height=width> </center> </td>
+</tr>
+
+<tr>
+<td><center> Ground Truth </center></td>
+<td><center> Noisy </center></td>
+<td><center> Denoised </center></td>
 </tr>
 </table>
 ##### If you like this repo, Star or Fork to support my work. Thank you.
