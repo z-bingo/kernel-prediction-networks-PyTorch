@@ -32,11 +32,14 @@ If else option `-ckpt` is choosen, you can select the other models you trained.
   - The code for single image is not released now, I will program it in few weeks.
   
 ## Results
-#### Image 1
-<img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png" width="300"/>
+<table>
+<tr>
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png"/> Ground Truth </center> </td>
 
-<img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png" width="300"/>
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png"/> Noisy </center> </td>
 
-<img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png" width="300"/>
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png"/> Denoised </center> </td>
   
+</tr>
+</table>
 ##### If you like this repo, Star or Fork to support my work. Thank you.
