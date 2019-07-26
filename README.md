@@ -34,7 +34,9 @@ If else option `-ckpt` is choosen, you can select the other models you trained.
 ## Results
 #### Image 1
 <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png" width="300"/>
-![Noisy](https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png)
-![Denoised Image](https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png)
+
+<img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png" width="300"/>
+
+<img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png" width="300"/>
   
 ##### If you like this repo, Star or Fork to support my work. Thank you.
