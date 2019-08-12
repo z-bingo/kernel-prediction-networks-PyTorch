@@ -14,6 +14,9 @@ Write the documents.
 - TensorboardX (needed tensorflow support)
 
 ## How to use this repo?
+
+Firstly, you can clone this repo. including train and test codes, and download pretrained model at [https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso](https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso).
+
 The repo. supports multiple GPUs to train and validate, and the default setting is multi-GPUs. In other words, the pretrained model is obtained by training on multi-GPUs.
 
 - If you want to restart the train process by yourself, the command you should type is that
