@@ -1,1 +1,1 @@
-checkpoint file here
+Due to the limitation of bandwidth of github, the pretrained model has uploaded to Google Drive at [https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso](https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso).
