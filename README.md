@@ -15,7 +15,7 @@ Write the documents.
 
 ## How to use this repo?
 
-Firstly, you can clone this repo. including train and test codes, and download pretrained model at [https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso](https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso).
+Firstly, you can clone this repo. including train and test codes. Download pretrained model for grayscale images at [https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso](https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso), and for color images at [https://drive.google.com/file/d/1Il-n7un_u8wWizjQ5ZKQ5hns7S27b0HW/view?usp=sharing](https://drive.google.com/file/d/1Il-n7un_u8wWizjQ5ZKQ5hns7S27b0HW/view?usp=sharing).
 
 The repo. supports multiple GPUs to train and validate, and the default setting is multi-GPUs. In other words, the pretrained model is obtained by training on multi-GPUs.
 
