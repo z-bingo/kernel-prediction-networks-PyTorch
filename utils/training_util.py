@@ -6,6 +6,7 @@ import os
 import cv2
 import numbers
 import skimage
+import random
 from collections import OrderedDict
 from configobj import ConfigObj
 from validate import Validator
@@ -29,7 +30,7 @@ class MovingAverage(object):
 
 
 def save_checkpoint(state, is_best, checkpoint_dir, n_iter, max_keep=10):
-    filename = os.path.join(checkpoint_dir, "{:06d}.pth.tar".format(n_iter))
+    filename = os.path.join(checkpoint_dir, "{:07d}.pth.tar".format(n_iter))
     torch.save(state, filename)
     if is_best:
         shutil.copyfile(filename,
@@ -51,9 +52,10 @@ def _represent_int(s):
 def load_checkpoint(checkpoint_dir, best_or_latest='best'):
     if best_or_latest == 'best':
         checkpoint_file = os.path.join(checkpoint_dir, 'model_best.pth.tar')
-    elif isinstance(best_or_latest, numbers.Number):
+    elif best_or_latest.isdigit():
+        best_or_latest = int(best_or_latest)
         checkpoint_file = os.path.join(checkpoint_dir,
-                                       '{:06d}.pth.tar'.format(best_or_latest))
+                                       '{:07d}.pth.tar'.format(best_or_latest))
         if not os.path.exists(checkpoint_file):
             files = glob.glob(os.path.join(checkpoint_dir, '*.pth.tar'))
             basenames = [os.path.basename(f).split('.')[0] for f in files]
@@ -64,7 +66,7 @@ def load_checkpoint(checkpoint_dir, best_or_latest='best'):
         basenames = [os.path.basename(f).split('.')[0] for f in files]
         iters = sorted([int(b) for b in basenames if _represent_int(b)])
         checkpoint_file = os.path.join(checkpoint_dir,
-                                       '{:06d}.pth.tar'.format(iters[-1]))
+                                       '{:07d}.pth.tar'.format(iters[-1]))
     return torch.load(checkpoint_file)
 
 
@@ -179,9 +181,12 @@ def calculate_psnr(output_img, target_img):
     psnr = 0.0
     n = 0.0
     for im_idx in range(output_tf.shape[0]):
-        psnr += skimage.measure.compare_psnr(target_tf[im_idx, ...],
-                                             output_tf[im_idx, ...],
-                                             data_range=255)
+        # psnr += skimage.measure.compare_psnr(target_tf[im_idx, ...],
+        #                                      output_tf[im_idx, ...],
+        #                                      data_range=1.)
+        psnr += skimage.metrics.peak_signal_noise_ratio(normalize(target_tf[im_idx, ...]),
+                                             normalize(output_tf[im_idx, ...]),
+                                             data_range=1.)
         n += 1.0
     return psnr / n
 
@@ -192,9 +197,10 @@ def calculate_ssim(output_img, target_img):
     ssim = 0.0
     n = 0.0
     for im_idx in range(output_tf.shape[0]):
-        ssim += skimage.measure.compare_ssim(target_tf[im_idx, ...],
-                                             output_tf[im_idx, ...],
-                                             multichannel=True,
-                                             data_range=255)
+        ssim += skimage.metrics.structural_similarity(normalize(target_tf[im_idx, ...]),
+                                             normalize(output_tf[im_idx, ...]),
+                                             channel_axis=2,
+                                             K1=0.01, K2=0.03, sigma=1.5,
+                                             data_range=1.)
         n += 1.0
     return ssim / n

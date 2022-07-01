@@ -35,6 +35,7 @@ If else option `-ckpt` is choosen, you can select the other models you trained.
   - The code for single image is not released now, I will program it in few weeks.
   
 ## Results
+### on grayscale images:
 The following images and more examples can be found at [here](https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/).
 
 <table>
@@ -64,6 +65,39 @@ The following images and more examples can be found at [here](https://github.com
 <td><center> Ground Truth </center></td>
 <td><center> Noisy </center></td>
 <td><center> Denoised </center></td>
+</tr>
+</table>
+
+### on color images:
+The following images and more examples can be found at [here](https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/).
+
+<table>
+<tr>
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png"/ width="300"> </center> </td>
+
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png"/ width="300" height=width> </center> </td>
+
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png"/ width="300" height=width> </center> </td>
+</tr>
+
+<tr>
+<td><center> Ground Truth </center></td>
+<td><center> Noisy (PSNR: 19.34dB, SSIM: 0.595) </center></td>
+<td><center> Denoised (PSNR: 29.69dB, SSIM: 0.937) </center></td>
+</tr>
+
+<tr>
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_gt.png"/ width="300"> </center> </td>
+
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_noisy.png"/ width="300" height=width> </center> </td>
+
+<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_kpn.png"/ width="300" height=width> </center> </td>
+</tr>
+
+<tr>
+<td><center> Ground Truth </center></td>
+<td><center> Noisy (PSNR: 18.70dB, SSIM: 0.308) </center></td>
+<td><center> Denoised (PSNR: 34.02dB, SSIM: 0.954) </center></td>
 </tr>
 </table>
 
