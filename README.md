@@ -69,15 +69,15 @@ The following images and more examples can be found at [here](https://github.com
 </table>
 
 ### on color images:
-The following images and more examples can be found at [here](https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/).
+The following images and more examples can be found at [here](https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/tree/master/eval_images_RGB/).
 
 <table>
 <tr>
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_gt.png"/ width="300"> </center> </td>
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/4_gt.png"/ width="300"> </center> </td>
 
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_noisy.png"/ width="300" height=width> </center> </td>
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/4_noisy_19.34dB_0.595.png"/ width="300" height=width> </center> </td>
 
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/1_kpn.png"/ width="300" height=width> </center> </td>
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/4_pred_29.69dB_0.937.png"/ width="300" height=width> </center> </td>
 </tr>
 
 <tr>
@@ -87,11 +87,11 @@ The following images and more examples can be found at [here](https://github.com
 </tr>
 
 <tr>
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_gt.png"/ width="300"> </center> </td>
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/12_gt.png"/ width="300"> </center> </td>
 
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_noisy.png"/ width="300" height=width> </center> </td>
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/12_noisy_18.70dB_0.308.png"/ width="300" height=width> </center> </td>
 
-<td> <center> <img src="https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/21_kpn.png"/ width="300" height=width> </center> </td>
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/12_pred_34.02dB_0.954.png"/ width="300" height=width> </center> </td>
 </tr>
 
 <tr>
