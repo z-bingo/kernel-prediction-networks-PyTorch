@@ -43,15 +43,20 @@ def train(config, num_workers, num_threads, cuda, restart_train, mGPU):
     logs_dir = train_config['logs_dir']
     if not os.path.exists(logs_dir):
         os.makedirs(logs_dir)
-    shutil.rmtree(logs_dir)
+    # This sentence is usually commented to prevent the previous log from being
+    # deleted when continuing training from a checkpoint.
+    # shutil.rmtree(logs_dir)
     log_writer = SummaryWriter(logs_dir)
 
+    dataset_config = \
+    read_config(train_config['dataset_configs'], _configspec_path())[
+        'dataset_configs']
     # dataset and dataloader
     data_set = TrainDataSet(
         train_config['dataset_configs'],
         img_format='.bmp',
         degamma=True,
-        color=False,
+        color=dataset_config['color'],
         blind=arch_config['blind_est']
     )
     data_loader = DataLoader(
@@ -60,11 +65,10 @@ def train(config, num_workers, num_threads, cuda, restart_train, mGPU):
         shuffle=True,
         num_workers=num_workers
     )
-    dataset_config = read_config(train_config['dataset_configs'], _configspec_path())['dataset_configs']
 
     # model here
     model = KPN(
-        color=False,
+        color=dataset_config['color'],
         burst_length=dataset_config['burst_length'],
         blind_est=arch_config['blind_est'],
         kernel_size=list(map(int, arch_config['kernel_size'].split())),
@@ -158,10 +162,11 @@ def train(config, num_workers, num_threads, cuda, restart_train, mGPU):
             if cuda:
                 burst_noise = burst_noise.cuda()
                 gt = gt.cuda()
+                white_level = white_level.cuda()
             # print('white_level', white_level, white_level.size())
 
             #
-            pred_i, pred = model(burst_noise, burst_noise[:, 0:burst_length, ...], white_level)
+            pred_i, pred = model(torch.flatten(burst_noise, 1, 2) if dataset_config['color'] else burst_noise, burst_noise[:, 0:burst_length, ...], white_level)
 
             #
             loss_basic, loss_anneal = loss_func(sRGBGamma(pred_i), sRGBGamma(pred), sRGBGamma(gt), global_step)
@@ -173,8 +178,8 @@ def train(config, num_workers, num_threads, cuda, restart_train, mGPU):
             # update the average loss
             average_loss.update(loss)
             # calculate PSNR
-            psnr = calculate_psnr(pred.unsqueeze(1), gt.unsqueeze(1))
-            ssim = calculate_ssim(pred.unsqueeze(1), gt.unsqueeze(1))
+            psnr = calculate_psnr(pred if dataset_config['color'] else pred.unsqueeze(1), gt if dataset_config['color'] else gt.unsqueeze(1))
+            ssim = calculate_ssim(pred if dataset_config['color'] else pred.unsqueeze(1), gt if dataset_config['color'] else gt.unsqueeze(1))
 
             # add scalars to tensorboardX
             log_writer.add_scalar('loss_basic', loss_basic, global_step)
@@ -232,12 +237,19 @@ def eval(config, args):
     for f in files:
         os.remove(os.path.join(eval_dir, f))
 
+    dataset_config = \
+    read_config(train_config['dataset_configs'], _configspec_path())[
+        'dataset_configs']
     # dataset and dataloader
+
+    # 固定随机种子
+    setup_seed(42)
+
     data_set = TrainDataSet(
         train_config['dataset_configs'],
         img_format='.bmp',
         degamma=True,
-        color=False,
+        color=dataset_config['color'],
         blind=arch_config['blind_est'],
         train=False
     )
@@ -248,11 +260,10 @@ def eval(config, args):
         num_workers=args.num_workers
     )
 
-    dataset_config = read_config(train_config['dataset_configs'], _configspec_path())['dataset_configs']
 
     # model here
     model = KPN(
-        color=False,
+        color=dataset_config['color'],
         burst_length=dataset_config['burst_length'],
         blind_est=arch_config['blind_est'],
         kernel_size=list(map(int, arch_config['kernel_size'].split())),
@@ -282,44 +293,49 @@ def eval(config, args):
     trans = transforms.ToPILImage()
 
     with torch.no_grad():
-        psnr = 0.0
-        ssim = 0.0
+        psnr = []
+        ssim = []
+        test_num = 0
         for i, (burst_noise, gt, white_level) in enumerate(data_loader):
-            if i < 100:
-                # data = next(data_loader)
-                if args.cuda:
-                    burst_noise = burst_noise.cuda()
-                    gt = gt.cuda()
-                    white_level = white_level.cuda()
+            # data = next(data_loader)
+            if args.cuda:
+                burst_noise = burst_noise.cuda()
+                gt = gt.cuda()
+                white_level = white_level.cuda()
 
-                pred_i, pred = model(burst_noise, burst_noise[:, 0:burst_length, ...], white_level)
+            pred_i, pred = model(torch.flatten(burst_noise, 1, 2) if dataset_config['color'] else burst_noise, burst_noise[:, 0:burst_length, ...], white_level)
 
-                pred_i = sRGBGamma(pred_i)
-                pred = sRGBGamma(pred)
-                gt = sRGBGamma(gt)
-                burst_noise = sRGBGamma(burst_noise / white_level)
+            pred_i = sRGBGamma(pred_i)
+            pred = sRGBGamma(pred)
+            gt = sRGBGamma(gt)
+            burst_noise = sRGBGamma(burst_noise / white_level)
 
-                psnr_t = calculate_psnr(pred.unsqueeze(1), gt.unsqueeze(1))
-                ssim_t = calculate_ssim(pred.unsqueeze(1), gt.unsqueeze(1))
-                psnr_noisy = calculate_psnr(burst_noise[:, 0, ...].unsqueeze(1), gt.unsqueeze(1))
-                psnr += psnr_t
-                ssim += ssim_t
+            psnr_t = calculate_psnr(pred, gt if dataset_config['color'] else gt.unsqueeze(1))
+            ssim_t = calculate_ssim(pred, gt if dataset_config['color'] else gt.unsqueeze(1))
+            psnr_noisy = calculate_psnr(burst_noise[:, 0, ...] if dataset_config['color'] else burst_noise[:, 0, ...].unsqueeze(1), gt if dataset_config['color'] else gt.unsqueeze(1))
+            ssim_noisy = calculate_ssim(burst_noise[:, 0, ...] if dataset_config['color'] else burst_noise[:, 0, ...].unsqueeze(1), gt if dataset_config['color'] else gt.unsqueeze(1))
+            psnr.append(psnr_t)
+            ssim.append(ssim_t)
 
-                pred = torch.clamp(pred, 0.0, 1.0)
+            pred = torch.clamp(pred, 0.0, 1.0)
+            noise = torch.clamp(burst_noise[0, 0, ...], 0.0, 1.0)
 
-                if args.cuda:
-                    pred = pred.cpu()
-                    gt = gt.cpu()
-                    burst_noise = burst_noise.cpu()
+            if args.cuda:
+                pred = pred.cpu()
+                gt = gt.cpu()
+                burst_noise = burst_noise.cpu()
 
-                trans(burst_noise[0, 0, ...].squeeze()).save(os.path.join(eval_dir, '{}_noisy_{:.2f}dB.png'.format(i, psnr_noisy)), quality=100)
-                trans(pred.squeeze()).save(os.path.join(eval_dir, '{}_pred_{:.2f}dB.png'.format(i, psnr_t)), quality=100)
-                trans(gt.squeeze()).save(os.path.join(eval_dir, '{}_gt.png'.format(i)), quality=100)
+            trans(noise.squeeze()).save(os.path.join(eval_dir, '{}_noisy_{:.2f}dB_{:.3f}.png'.format(i, psnr_noisy, ssim_noisy)), quality=100)
+            trans(pred.squeeze()).save(os.path.join(eval_dir, '{}_pred_{:.2f}dB_{:.3f}.png'.format(i, psnr_t, ssim_t)), quality=100)
+            trans(gt.squeeze()).save(os.path.join(eval_dir, '{}_gt.png'.format(i)), quality=100)
 
-                print('{}-th image is OK, with PSNR: {:.2f}dB, SSIM: {:.4f}'.format(i, psnr_t, ssim_t))
-            else:
-                break
-        print('All images are OK, average PSNR: {:.2f}dB, SSIM: {:.4f}'.format(psnr/100, ssim/100))
+            print('{}-th image is OK, with PSNR: {:.2f}dB, SSIM: {:.3f}'.format(i, psnr_t, ssim_t))
+            test_num += 1
+
+        psnr_mean, psnr_std = np.mean(psnr), np.std(psnr)
+        ssim_mean, ssim_std = np.mean(ssim), np.std(ssim)
+        print('All {} images are OK, average PSNR: {:.2f} ± {:.2f}dB, SSIM: {:.3f} ± {:.3f}'.format(test_num, psnr_mean, psnr_std, ssim_mean, ssim_std))
+        print('({:.2f}±{:.2f}dB)-({:.3f}±{:.3f}))'.format(psnr_mean, psnr_std, ssim_mean, ssim_std))
 
 
 if __name__ == '__main__':
@@ -336,6 +352,9 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint', '-ckpt', dest='checkpoint', type=str, default='best',
                         help='the checkpoint to eval')
     args = parser.parse_args()
+
+    for k in args.__dict__:
+        print(k + ": " + str(args.__dict__[k]))
     #
     config = read_config(args.config_file, args.config_spec)
     if args.eval:

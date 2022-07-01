@@ -15,7 +15,7 @@ Write the documents.
 
 ## How to use this repo?
 
-Firstly, you can clone this repo. including train and test codes, and download pretrained model at [https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso](https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso).
+Firstly, you can clone this repo. including train and test codes. Download pretrained model for grayscale images at [https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso](https://drive.google.com/open?id=1Xnpllr1dinAU7BIN21L3LkEP5AqMNWso), and for color images at [https://drive.google.com/file/d/1Il-n7un_u8wWizjQ5ZKQ5hns7S27b0HW/view?usp=sharing](https://drive.google.com/file/d/1Il-n7un_u8wWizjQ5ZKQ5hns7S27b0HW/view?usp=sharing).
 
 The repo. supports multiple GPUs to train and validate, and the default setting is multi-GPUs. In other words, the pretrained model is obtained by training on multi-GPUs.
 
@@ -35,6 +35,7 @@ If else option `-ckpt` is choosen, you can select the other models you trained.
   - The code for single image is not released now, I will program it in few weeks.
   
 ## Results
+### on grayscale images:
 The following images and more examples can be found at [here](https://github.com/z-bingo/kernel-prediction-networks-PyTorch/blob/master/eval_images/).
 
 <table>
@@ -64,6 +65,39 @@ The following images and more examples can be found at [here](https://github.com
 <td><center> Ground Truth </center></td>
 <td><center> Noisy </center></td>
 <td><center> Denoised </center></td>
+</tr>
+</table>
+
+### on color images:
+The following images and more examples can be found at [here](https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/tree/master/eval_images_RGB/).
+
+<table>
+<tr>
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/4_gt.png"/ width="300"> </center> </td>
+
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/4_noisy_19.34dB_0.595.png"/ width="300" height=width> </center> </td>
+
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/4_pred_29.69dB_0.937.png"/ width="300" height=width> </center> </td>
+</tr>
+
+<tr>
+<td><center> Ground Truth </center></td>
+<td><center> Noisy (PSNR: 19.34dB, SSIM: 0.595) </center></td>
+<td><center> Denoised (PSNR: 29.69dB, SSIM: 0.937) </center></td>
+</tr>
+
+<tr>
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/12_gt.png"/ width="300"> </center> </td>
+
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/12_noisy_18.70dB_0.308.png"/ width="300" height=width> </center> </td>
+
+<td> <center> <img src="https://github.com/LujiaJin/kernel-prediction-networks-PyTorch/blob/master/eval_images_RGB/12_pred_34.02dB_0.954.png"/ width="300" height=width> </center> </td>
+</tr>
+
+<tr>
+<td><center> Ground Truth </center></td>
+<td><center> Noisy (PSNR: 18.70dB, SSIM: 0.308) </center></td>
+<td><center> Denoised (PSNR: 34.02dB, SSIM: 0.954) </center></td>
 </tr>
 </table>
 
